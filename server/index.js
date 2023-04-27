@@ -17,16 +17,15 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-    console.log('CONNECTION')
     socket.on('join', ({room}) => {
         socket.join(room)
-        socket.on('message', ({name, message})=>{
-            console.log(message)
+        socket.on('message', ({message, chatId})=>{
+            socket.emit('sent_to_client', ({chatId: chatId, msg: message}))
+            socket.emit('send_to_bot', ({chatId: chatId, msg: message}))
         })
     })
 
     socket.on('disconnect', () => {
-        console.log('disconnect')
     })
 })
 

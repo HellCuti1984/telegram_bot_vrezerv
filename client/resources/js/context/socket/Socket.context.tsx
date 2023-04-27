@@ -6,7 +6,7 @@ export interface ISetSocketContextProps {
 }
 
 interface IContextSocketProps {
-    setSocketContext: ({socket}: ISetSocketContextProps) => void
+    setSocketContext: ({socket}: ISetSocketContextProps | null) => void
 }
 
 export const SocketContext = createContext<IContextSocketProps>({

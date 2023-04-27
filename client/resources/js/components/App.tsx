@@ -16,13 +16,6 @@ const App = () => {
         console.log(BX24.getAuth());
     }, []);*/
 
-    useEffect(() => {
-        window.socket.emit('join', {room: Math.random()})
-        window.socket.emit('message', {name: 'miha', message: 'kawo'})
-        return ()=> {
-            window.socket.emit('disconnect')
-        }
-    }, [])
 
     return (
         <div className={s.main}>

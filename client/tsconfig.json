@@ -16,11 +16,6 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
         "paths": {
             "@/*": ["./resources/*"],
-            "@Images/*": ["./resources/js/images/*"],
-            "@Models/*": ["./resources/js/models/*"],
-            "@Store/*": ["./resources/js/store/*"],
-            "@Services/*": ["./resources/js/services/*"],
-            "@Components/*": ["./resources/js/components/*"]
         },
         /* Visit https://aka.ms/tsconfig to read more about this file */
 
