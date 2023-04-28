@@ -12,14 +12,14 @@ const bot = new TelegramBot(token, {polling: true});
 const socket = io('http://localhost:5000')
 bot.on('message', (msg: Message) => {
     const chatId = msg.chat.id;
-    console.log(chatId)
-    socket.emit('join', {room: chatId})
-    socket.emit('message', {name: 'miha', msg: msg.text, chatId: chatId})
 
-    //bot.sendMessage(chatId, JSON.stringify(msg));
+    socket.emit('join', {room: chatId})
+    socket.emit('sent_to_client', {chatId: chatId, msg: msg.text})
+
+    bot.sendMessage(chatId, JSON.stringify(msg));
 });
 
 socket.on('send_to_bot', ({chatId, msg}) => {
-    console.log(msg)
-    bot.sendMessage(chatId, msg)
+    // @ts-ignore
+    bot.sendMessage(chatId, msg).then(r => console.log(r))
 })

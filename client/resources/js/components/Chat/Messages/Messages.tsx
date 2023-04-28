@@ -9,16 +9,20 @@ const Messages = () => {
     const [messages, setMessages] = useState<string[]>([]);
 
     const handleClick = () => {
-        socket.emit('message', {name: 'miha', message: 'CLIENT'})
+        socket.emit('send_to_bot', {chatId: 629766125, msg: Math.random().toString()})
     }
 
+    useEffect(()=>{
+        socket.emit('join', {room: 629766125})
+    }, [])
 
     useEffect(() => {
-        socket.emit('join', {room: 629766125})
-        socket.on('sent_to_client', ({msg}) => {
-            setMessages(prev=>[...prev, msg]);
+        socket.on('get_on_client', ({msg}) => {
+            console.log(msg)
+            setMessages(prev => [...prev, msg]);
         })
-        return ()=> {
+
+        return () => {
             socket.emit('disconnect')
         }
     }, [])

@@ -8,7 +8,7 @@ const {Server} = require("socket.io");
 
 app.use(cors({origin: '*'}))
 app.use(route)
-
+console.clear();
 const io = new Server(server, {
     cors: {
         origin: "*",
@@ -19,9 +19,12 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     socket.on('join', ({room}) => {
         socket.join(room)
-        socket.on('message', ({message, chatId})=>{
-            socket.emit('sent_to_client', ({chatId: chatId, msg: message}))
-            socket.emit('send_to_bot', ({chatId: chatId, msg: message}))
+
+        socket.on('sent_to_client', ({msg, chatId})=>{
+            socket.broadcast.to(room).emit('get_on_client', ({chatId: chatId, msg: msg}))
+            socket.emit('get_on_client', ({chatId: chatId, msg: msg}))
+            console.log(msg)
+            //socket.emit('send_to_bot', ({chatId: chatId, msg: msg}))
         })
     })
 
